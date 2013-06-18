@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>GroupDocs:Groupdocs Signature</id>
+	<version>1.0</version>
+
+		<file name="$themedir/Post.template.php">
+		<operation>
+           
+			<search position="end"></search>
+			<add><![CDATA[			
+             echo '
+                <script type="text/javascript"><!-- // --><![CDATA[
+                    setTimeout(function(){
+                         var bbcBox = document.getElementById("bbcBox_message");
+                         var comparison = document.createElement("div");
+                         comparison.setAttribute("id", "groupdocsCompare")
+                         comparison.innerHTML = \'<img onClick="insertCompare();" width="23" height="22" align="bottom" title="GroupDocs Comparison" alt="GroupDocs Comparison" src="/themes/default/images/bbc/comparison.png" style="cursor: pointer; background-image: url("/themes/default/images/bbc/bbc_bg.gif");">\'
+                         bbcBox.appendChild(comparison);
+                    }, 3000);
+                     function insertCompare() {
+                         var bbcBox = document.getElementById("bbcBox_message");
+                         var fields = document.createElement("span");
+                         fields.setAttribute("id", "groupdocs_fields");
+                         fields.innerHTML = \'<label for="embedKey">Embed Key</label><input type="text", id="embedKey" value="" />\'+
+                                            \'<label for="fileId">File ID</label><input type="text" id="fileid" value="">\'+
+                                            \'<input type="button" name="doRequest" value="Make request" onClick="insertIframe();">\';
+                     }
+                     function inserIframe(){             
+                         // all good continue
+                         var cmsName = \'SMF-Signature\'
+                         var cmsVersion = \'1.0\'
+                         embedId = document.getElementById("embedKey").value;
+                         fileId = document.getElementById("fileid").value;
+                         if (fileId != "" && embedId != "") {
+                            var iframe = \'[html]<iframe src="<iframe src="https://apps.groupdocs.com/document-comparison/embed/\' + embedId + \'/\' + fileId +\'?&referer=\'+cmsName+\'/\'+cmsVersion+\'" frameborder="0" width="600" height="400">If you can see this text, your browser does not support iframes. Please enable iframe support in your browser or use the latest version of any popular web browser such as Mozilla Firefox or Google Chrome. For more help, please check our documentation Wiki: http://groupdocs.com/docs/display/comparison/GroupDocs+Comparison+Integration+with+3rd+Party+Platforms</iframe>[/html]\';
+                            textArea = document.getElementById("message");
+                            textArea.value = textArea.value + iframe;
+                         }
+                     }
+                </script>';
+          
+          ]]></add>
+		</operation>
+	</file>
+	
+	<file name="$sourcedir/ManageSettings.php">
+		<operation>
+			<search position="before"><![CDATA[		// Mod authors, add any settings UNDER this line. Include a comma at the end of the line and don't remove this statement!!
+]]></search>
+			<add><![CDATA[
+	
+	    array('check', 'gdc_enable'),
+		
+			
+]]></add>
+		</operation>
+	</file>
+	
+</modification>
